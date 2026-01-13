@@ -3,34 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Mail, Phone, MapPin, Clock } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
-
-const contactInfo = [
-  {
-    icon: Mail,
-    label: "Email",
-    value: "hello@essence.com",
-    href: "mailto:hello@essence.com",
-  },
-  {
-    icon: Phone,
-    label: "Phone",
-    value: "+1 (555) 123-4567",
-    href: "tel:+15551234567",
-  },
-  {
-    icon: MapPin,
-    label: "Address",
-    value: "123 Design Street\nSan Francisco, CA 94102",
-  },
-  {
-    icon: Clock,
-    label: "Business Hours",
-    value: "Mon - Fri: 9am - 6pm PST\nSat - Sun: Closed",
-  },
-];
 
 export default function Contact() {
   const { toast } = useToast();
@@ -40,7 +14,6 @@ export default function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     toast({
@@ -54,116 +27,153 @@ export default function Contact() {
 
   return (
     <Layout>
-      {/* Header */}
-      <section className="section-spacing bg-secondary">
-        <div className="container-page text-center">
-          <h1 className="text-4xl md:text-5xl font-semibold text-foreground mb-4 animate-fade-in">
+      {/* Hero Header */}
+      <section className="min-h-[50vh] flex items-end pt-32 pb-20">
+        <div className="container-page">
+          <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-6">
+            Contact
+          </p>
+          <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl text-foreground max-w-3xl leading-[1.1]">
             Get in Touch
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: "0.1s" }}>
-            Have a question or just want to say hello? We'd love to hear from you.
-          </p>
         </div>
       </section>
 
-      {/* Contact Form & Info */}
-      <section className="section-spacing bg-background">
-        <div className="container-page">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
-            {/* Contact Form */}
-            <div className="animate-fade-in">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="name">Name</Label>
-                    <Input
-                      id="name"
-                      name="name"
-                      placeholder="Your name"
-                      required
-                      className="bg-background"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      placeholder="your@email.com"
-                      required
-                      className="bg-background"
-                    />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="subject">Subject</Label>
+      {/* Contact Content */}
+      <section className="container-page pb-32">
+        <div className="grid grid-cols-12 gap-8 lg:gap-16">
+          {/* Contact Form */}
+          <div className="col-span-12 lg:col-span-7">
+            <form onSubmit={handleSubmit} className="space-y-8">
+              <div className="grid sm:grid-cols-2 gap-6">
+                <div className="space-y-3">
+                  <Label htmlFor="name" className="text-xs uppercase tracking-widest text-muted-foreground">
+                    Name
+                  </Label>
                   <Input
-                    id="subject"
-                    name="subject"
-                    placeholder="How can we help?"
+                    id="name"
+                    name="name"
+                    placeholder="Your name"
                     required
-                    className="bg-background"
+                    className="border-0 border-b border-border rounded-none bg-transparent px-0 py-4 focus-visible:ring-0 focus-visible:border-foreground transition-colors"
                   />
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="message">Message</Label>
-                  <Textarea
-                    id="message"
-                    name="message"
-                    placeholder="Tell us more..."
-                    rows={6}
+                <div className="space-y-3">
+                  <Label htmlFor="email" className="text-xs uppercase tracking-widest text-muted-foreground">
+                    Email
+                  </Label>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="your@email.com"
                     required
-                    className="bg-background resize-none"
+                    className="border-0 border-b border-border rounded-none bg-transparent px-0 py-4 focus-visible:ring-0 focus-visible:border-foreground transition-colors"
                   />
                 </div>
-                <Button type="submit" size="lg" className="w-full sm:w-auto" disabled={isSubmitting}>
-                  {isSubmitting ? "Sending..." : "Send Message"}
-                </Button>
-              </form>
-            </div>
+              </div>
+              <div className="space-y-3">
+                <Label htmlFor="subject" className="text-xs uppercase tracking-widest text-muted-foreground">
+                  Subject
+                </Label>
+                <Input
+                  id="subject"
+                  name="subject"
+                  placeholder="How can we help?"
+                  required
+                  className="border-0 border-b border-border rounded-none bg-transparent px-0 py-4 focus-visible:ring-0 focus-visible:border-foreground transition-colors"
+                />
+              </div>
+              <div className="space-y-3">
+                <Label htmlFor="message" className="text-xs uppercase tracking-widest text-muted-foreground">
+                  Message
+                </Label>
+                <Textarea
+                  id="message"
+                  name="message"
+                  placeholder="Tell us more..."
+                  rows={6}
+                  required
+                  className="border-0 border-b border-border rounded-none bg-transparent px-0 py-4 focus-visible:ring-0 focus-visible:border-foreground transition-colors resize-none"
+                />
+              </div>
+              <Button
+                type="submit"
+                disabled={isSubmitting}
+                className="mt-8 px-12"
+              >
+                {isSubmitting ? "Sending..." : "Send Message"}
+              </Button>
+            </form>
+          </div>
 
-            {/* Contact Info */}
-            <div className="space-y-8 animate-fade-in" style={{ animationDelay: "0.2s" }}>
-              <div className="grid gap-6">
-                {contactInfo.map((item) => (
-                  <div key={item.label} className="flex gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 rounded-full bg-secondary flex items-center justify-center">
-                      <item.icon className="h-5 w-5 text-primary" />
-                    </div>
-                    <div>
-                      <p className="font-medium text-foreground">{item.label}</p>
-                      {item.href ? (
-                        <a
-                          href={item.href}
-                          className="text-muted-foreground hover:text-primary transition-colors whitespace-pre-line"
-                        >
-                          {item.value}
-                        </a>
-                      ) : (
-                        <p className="text-muted-foreground whitespace-pre-line">{item.value}</p>
-                      )}
-                    </div>
-                  </div>
-                ))}
+          {/* Contact Info */}
+          <div className="col-span-12 lg:col-span-4 lg:col-start-9">
+            <div className="space-y-12">
+              <div>
+                <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-4">
+                  Joel Ortiz
+                </p>
+                <p className="text-foreground">
+                  <a 
+                    href="mailto:NealJoseph8878@outlook.com"
+                    className="hover:text-primary transition-colors"
+                  >
+                    NealJoseph8878@outlook.com
+                  </a>
+                </p>
               </div>
 
-              {/* Map Placeholder */}
-              <div className="aspect-video rounded-2xl overflow-hidden bg-secondary border border-border">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d50470.06560046929!2d-122.46191466328126!3d37.7749295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80859a6d00690021%3A0x4a501367f076adff!2sSan%20Francisco%2C%20CA%2C%20USA!5e0!3m2!1sen!2s!4v1704067200000!5m2!1sen!2s"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="Our location"
-                />
+              <div>
+                <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-4">
+                  Phone
+                </p>
+                <p className="text-foreground">
+                  <a 
+                    href="tel:+14045339184"
+                    className="hover:text-primary transition-colors"
+                  >
+                    +1 (404) 533-9184
+                  </a>
+                </p>
+              </div>
+
+              <div>
+                <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-4">
+                  Address
+                </p>
+                <p className="text-foreground">
+                  Owen Drive 1761<br />
+                  Clearwater, Florida 33759
+                </p>
+              </div>
+
+              <div>
+                <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground mb-4">
+                  Hours
+                </p>
+                <p className="text-foreground">
+                  Mon — Fri: 9am — 6pm EST<br />
+                  Sat — Sun: Closed
+                </p>
               </div>
             </div>
           </div>
         </div>
+      </section>
+
+      {/* Map Section */}
+      <section className="h-[50vh] bg-muted">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d112664.76407758587!2d-82.83086565!3d27.9658533!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88c2f0a864159c7b%3A0x7bcd3a1a2f32a687!2sClearwater%2C%20FL%2C%20USA!5e0!3m2!1sen!2s!4v1704067200000!5m2!1sen!2s"
+          width="100%"
+          height="100%"
+          style={{ border: 0, filter: "grayscale(100%) contrast(1.1)" }}
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          title="Our location in Clearwater, Florida"
+        />
       </section>
     </Layout>
   );

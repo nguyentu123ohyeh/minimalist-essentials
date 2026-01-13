@@ -1,154 +1,155 @@
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles, Shield, Truck } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
-import { ProductCard } from "@/components/products/ProductCard";
-import { products } from "@/data/products";
-import heroImage from "@/assets/hero-image.jpg";
-
-const features = [
-  {
-    icon: Sparkles,
-    title: "Quality Materials",
-    description: "Every product is crafted from premium, sustainable materials built to last.",
-  },
-  {
-    icon: Shield,
-    title: "Thoughtful Design",
-    description: "Minimalist aesthetics meet functionality in every piece we curate.",
-  },
-  {
-    icon: Truck,
-    title: "Free Shipping",
-    description: "Complimentary shipping on all orders over $75. Delivered with care.",
-  },
-];
+import { CursorFollowButton } from "@/components/ui/CursorFollowButton";
+import { BentoGrid } from "@/components/home/BentoGrid";
+import { CuratedCollections } from "@/components/home/CuratedCollections";
+import { ProductMarquee } from "@/components/home/ProductMarquee";
+import heroFashion from "@/assets/hero-fashion.jpg";
 
 export default function Index() {
+  const bentoRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBento = () => {
+    bentoRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    // Add intersection observer for fade-in animations
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-fade-in-up");
+            entry.target.classList.remove("opacity-0");
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+    );
+
+    document.querySelectorAll(".fade-on-scroll").forEach((el) => {
+      el.classList.add("opacity-0");
+      observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="relative bg-secondary overflow-hidden">
-        <div className="container-page">
-          <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[calc(100vh-4rem)]">
-            {/* Hero Text */}
-            <div className="py-16 lg:py-0 space-y-8 animate-fade-in">
-              <div className="space-y-4">
-                <p className="text-sm font-medium text-primary uppercase tracking-wider">
-                  Modern Living Essentials
+      {/* Hero Section - Typography Led */}
+      <section className="relative min-h-screen flex items-center pt-20">
+        <div className="container-wide w-full">
+          <div className="grid grid-cols-12 gap-4 items-center">
+            {/* Large Typography */}
+            <div className="col-span-12 lg:col-span-7 z-10">
+              <div className="space-y-6">
+                <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground animate-fade-in">
+                  Modern Avant-Garde Living
                 </p>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground leading-tight">
-                  Simplify Your Life with{" "}
-                  <span className="text-primary">Essence</span>
+                <h1 className="font-serif text-[clamp(3rem,10vw,8rem)] leading-[0.9] tracking-tight text-foreground">
+                  <span className="block animate-fade-in-up">THE ART</span>
+                  <span className="block animate-fade-in-up animation-delay-100">OF</span>
+                  <span className="block text-primary animate-fade-in-up animation-delay-200">ORTIZ</span>
                 </h1>
-                <p className="text-lg text-muted-foreground max-w-lg">
-                  Discover modern minimalist essentials designed for everyday living. 
-                  Quality craftsmanship meets timeless design.
+                <p className="text-muted-foreground max-w-md text-lg leading-relaxed mt-8 animate-fade-in-up animation-delay-300">
+                  Curating modern minimalist essentials for those who appreciate 
+                  the beauty in simplicity.
                 </p>
-              </div>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button asChild variant="hero" size="lg">
-                  <Link to="/products">
+                <div className="flex items-center gap-8 mt-8 animate-fade-in-up animation-delay-400">
+                  <Link
+                    to="/products"
+                    className="text-xs uppercase tracking-[0.2em] text-foreground link-underline font-medium"
+                  >
                     Shop Collection
-                    <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
-                </Button>
-                <Button asChild variant="hero-outline" size="lg">
-                  <Link to="/about">Learn More</Link>
-                </Button>
-              </div>
-            </div>
-
-            {/* Hero Image */}
-            <div className="relative lg:h-[calc(100vh-4rem)] animate-slide-in-right" style={{ animationDelay: "0.2s" }}>
-              <div className="absolute inset-0 bg-gradient-to-t from-secondary via-transparent to-transparent lg:hidden" />
-              <img
-                src={heroImage}
-                alt="Modern minimalist living room with elegant home accessories"
-                className="w-full h-full object-cover lg:rounded-l-3xl"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="section-spacing bg-background">
-        <div className="container-page">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-semibold text-foreground mb-4">Why Choose Us</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              We believe in creating products that bring simplicity and elegance to your everyday life.
-            </p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <div
-                key={feature.title}
-                className="text-center p-8 rounded-2xl bg-secondary/50 card-hover animate-fade-in"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/10 text-primary mb-6">
-                  <feature.icon className="h-6 w-6" />
+                  <Link
+                    to="/about"
+                    className="text-xs uppercase tracking-[0.2em] text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Our Story
+                  </Link>
                 </div>
-                <h3 className="text-lg font-medium text-foreground mb-2">{feature.title}</h3>
-                <p className="text-sm text-muted-foreground">{feature.description}</p>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Trending Products */}
-      <section className="section-spacing bg-secondary">
-        <div className="container-page">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 gap-4">
-            <div>
-              <h2 className="text-3xl font-semibold text-foreground mb-2">Trending Now</h2>
-              <p className="text-muted-foreground">Our most loved pieces this season</p>
             </div>
-            <Button asChild variant="link" className="p-0">
-              <Link to="/products" className="flex items-center gap-2">
-                View All Products
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </Button>
-          </div>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-            {products.map((product, index) => (
-              <div
-                key={product.id}
-                className="animate-fade-in"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <ProductCard
-                  id={product.id}
-                  name={product.name}
-                  price={product.price}
-                  image={product.image}
-                  category={product.category}
+
+            {/* Hero Image - Asymmetric */}
+            <div className="col-span-12 lg:col-span-6 lg:col-start-7 lg:absolute lg:right-0 lg:top-1/2 lg:-translate-y-1/2 lg:h-[90vh] lg:w-[50vw]">
+              <div className="relative h-[60vh] lg:h-full rounded-2xl lg:rounded-l-3xl lg:rounded-r-none overflow-hidden">
+                <img
+                  src={heroFashion}
+                  alt="Elegant minimalist fashion"
+                  className="w-full h-full object-cover"
                 />
+                {/* Cursor Follow Button */}
+                <CursorFollowButton onClick={scrollToBento} />
               </div>
-            ))}
+            </div>
           </div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden lg:flex flex-col items-center gap-2 animate-fade-in animation-delay-500">
+          <span className="text-xs uppercase tracking-widest text-muted-foreground">Scroll</span>
+          <div className="w-[1px] h-12 bg-gradient-to-b from-foreground/50 to-transparent" />
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="section-spacing bg-primary text-primary-foreground">
-        <div className="container-page text-center">
-          <h2 className="text-3xl md:text-4xl font-semibold mb-4">
-            Ready to Transform Your Space?
-          </h2>
-          <p className="text-primary-foreground/80 max-w-2xl mx-auto mb-8">
-            Join thousands of design enthusiasts who have simplified their homes with our curated collection.
-          </p>
-          <Button asChild variant="secondary" size="lg">
-            <Link to="/products">
-              Explore Collection
-              <ArrowRight className="ml-2 h-4 w-4" />
+      {/* Bento Grid Showcase */}
+      <div ref={bentoRef}>
+        <BentoGrid />
+      </div>
+
+      {/* Curated Collections */}
+      <div className="fade-on-scroll">
+        <CuratedCollections />
+      </div>
+
+      {/* Product Marquee */}
+      <div className="fade-on-scroll">
+        <ProductMarquee />
+      </div>
+
+      {/* Contact Section */}
+      <section className="container-page section-spacing fade-on-scroll">
+        <div className="grid grid-cols-12 gap-8">
+          <div className="col-span-12 md:col-span-6 lg:col-span-5">
+            <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-4">
+              Get in Touch
+            </p>
+            <h2 className="font-serif text-4xl md:text-5xl text-foreground mb-8">
+              Joel Ortiz
+            </h2>
+            <div className="space-y-4 text-muted-foreground">
+              <p>
+                <a 
+                  href="mailto:NealJoseph8878@outlook.com" 
+                  className="hover:text-primary transition-colors"
+                >
+                  NealJoseph8878@outlook.com
+                </a>
+              </p>
+              <p>
+                <a 
+                  href="tel:+14045339184" 
+                  className="hover:text-primary transition-colors"
+                >
+                  +1 (404) 533-9184
+                </a>
+              </p>
+              <p>
+                Owen Drive 1761<br />
+                Clearwater, Florida 33759
+              </p>
+            </div>
+            <Link
+              to="/contact"
+              className="inline-block mt-8 text-xs uppercase tracking-[0.2em] text-foreground link-underline"
+            >
+              Contact Us
             </Link>
-          </Button>
+          </div>
         </div>
       </section>
     </Layout>
