@@ -13,11 +13,11 @@ export function ProductCard({ id, name, price, image, category }: ProductCardPro
   return (
     <div className="group">
       <Link to={`/products/${id}`} className="block">
-        <div className="relative aspect-[3/4] overflow-hidden rounded-xl bg-secondary mb-6">
+        <div className="aspect-[4/5] overflow-hidden rounded-xl bg-secondary/30">
           <img
-            src={image}
-            alt={name}
-            className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105"
+              src={image}
+              alt={name}
+              className="h-full w-full object-contain p-4 transition-transform duration-500 hover:scale-110"
           />
           <button
             className="absolute bottom-4 right-4 w-12 h-12 rounded-full bg-background shadow-elevated flex items-center justify-center opacity-0 translate-y-4 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0 hover:bg-primary hover:text-primary-foreground"

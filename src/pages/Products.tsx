@@ -8,7 +8,7 @@ import { X } from "lucide-react";
 
 export default function Products() {
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [priceRange, setPriceRange] = useState([0, 100]);
+  const [priceRange, setPriceRange] = useState([0, 500]);
 
   const filteredProducts = useMemo(() => {
     return products.filter((product) => {
@@ -75,7 +75,7 @@ export default function Products() {
               <Slider
                 value={priceRange}
                 onValueChange={setPriceRange}
-                max={100}
+                max={500}
                 step={5}
               />
             </div>

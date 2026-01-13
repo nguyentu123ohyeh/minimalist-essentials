@@ -5,79 +5,78 @@ import collectionSquare from "@/assets/collection-square.jpg";
 export function CuratedCollections() {
   return (
     <section className="container-page section-spacing">
-      {/* Section Header */}
-      <div className="mb-16">
-        <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-4">
+      {/* Header: Căn giữa để tạo sự sang trọng */}
+      <div className="text-center mb-24">
+        <p className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground mb-4">
           Curated with Care
         </p>
-        <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-foreground max-w-2xl">
-          Collections
+        <h2 className="font-serif text-5xl md:text-7xl text-foreground italic">
+          The Collections
         </h2>
       </div>
 
-      {/* Asymmetrical Layout */}
-      <div className="relative grid grid-cols-12 gap-4 md:gap-8 min-h-[800px]">
-        {/* Left Portrait Image */}
-        <div className="col-span-12 md:col-span-5 md:col-start-1">
-          <div className="aspect-[3/4] md:aspect-[2/3] overflow-hidden rounded-2xl">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-24 items-start">
+        
+        {/* Collection 01: Artisan Ceramics (Bên Trái - Cao) */}
+        <div className="md:col-span-6 space-y-8">
+          <div className="relative group overflow-hidden rounded-2xl aspect-[3/4]">
             <img
               src={collectionPortrait}
-              alt="Curated ceramics collection"
-              className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+              alt="Artisan Ceramics"
+              className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
             />
-          </div>
-        </div>
-
-        {/* Right Square Image - Offset Lower */}
-        <div className="col-span-12 md:col-span-5 md:col-start-7 md:mt-32">
-          <div className="aspect-square overflow-hidden rounded-2xl mb-8">
-            <img
-              src={collectionSquare}
-              alt="Natural textiles collection"
-              className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-            />
+            {/* Overlay label khi hover */}
+            <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           </div>
           
-          {/* Text in the whitespace */}
-          <div className="max-w-sm">
-            <h3 className="font-serif text-2xl md:text-3xl text-foreground mb-4">
-              Timeless Textiles
-            </h3>
-            <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-              Luxurious natural fabrics, handwoven with intention. Each piece tells a story of 
-              craftsmanship passed down through generations.
+          <div className="space-y-4 pr-12">
+            <span className="text-[10px] uppercase tracking-widest text-primary font-bold">01 / Ceramics</span>
+            <h3 className="font-serif text-3xl text-foreground">Artisan Vessels</h3>
+            <p className="text-muted-foreground text-sm leading-relaxed">
+              Hand-thrown vessels shaped by master artisans. Each piece carries 
+              the subtle imperfections that make it uniquely yours.
             </p>
             <Link
               to="/products"
-              className="text-xs uppercase tracking-[0.2em] text-foreground link-underline inline-block"
+              className="text-xs uppercase tracking-[0.2em] text-foreground link-underline inline-block pt-2"
             >
               Explore Collection
             </Link>
           </div>
         </div>
 
-        {/* Floating Text - Magazine Style */}
-        <div className="hidden lg:block absolute left-[40%] top-[15%] max-w-[200px]">
-          <p className="font-serif text-lg text-foreground/60 italic leading-relaxed">
-            Where form meets function, beauty finds its home.
-          </p>
-        </div>
+        {/* Collection 02: Timeless Textiles (Bên Phải - Thấp hơn) */}
+        <div className="md:col-span-5 md:col-start-8 md:mt-40 space-y-8">
+          <div className="relative group overflow-hidden rounded-2xl aspect-square">
+            <img
+              src={collectionSquare}
+              alt="Timeless Textiles"
+              className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+            />
+            <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          </div>
 
-        {/* Bottom Left Text */}
-        <div className="col-span-12 md:col-span-4 md:col-start-1 mt-8 md:-mt-32">
-          <h3 className="font-serif text-2xl md:text-3xl text-foreground mb-4">
-            Artisan Ceramics
-          </h3>
-          <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-            Hand-thrown vessels shaped by master artisans. Each piece carries 
-            the subtle imperfections that make it uniquely yours.
-          </p>
-          <Link
-            to="/products"
-            className="text-xs uppercase tracking-[0.2em] text-foreground link-underline inline-block"
-          >
-            Explore Collection
-          </Link>
+          <div className="space-y-4">
+            <span className="text-[10px] uppercase tracking-widest text-primary font-bold">02 / Textiles</span>
+            <h3 className="font-serif text-3xl text-foreground">Timeless Fabrics</h3>
+            <p className="text-muted-foreground text-sm leading-relaxed">
+              Luxurious natural fabrics, handwoven with intention. Each piece tells a story of 
+              craftsmanship passed down through generations.
+            </p>
+            <Link
+              to="/products"
+              className="text-xs uppercase tracking-[0.2em] text-foreground link-underline inline-block pt-2"
+            >
+              Explore Collection
+            </Link>
+          </div>
+          
+          {/* Magazine Quote: Thay vì dùng absolute lơ lửng, ta đặt nó làm điểm kết thúc cho cụm ảnh bên phải */}
+          <div className="pt-12 border-t border-border mt-12">
+            <p className="font-serif text-xl text-foreground/40 italic leading-relaxed">
+              "Where form meets function, beauty finds its home."
+            </p>
+          </div>
         </div>
       </div>
     </section>
